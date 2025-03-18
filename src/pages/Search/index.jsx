@@ -15,6 +15,17 @@ const Search = () => {
   const [inputValue, setInputValue] = useState("")
 
   useEffect(() => {
+    const handle = setTimeout(() => {
+      setKeyword(inputValue)
+    }
+    , 500)
+
+    return () => {
+      clearTimeout(handle)
+    }
+  },[inputValue]);
+
+  useEffect(() => {
     if(keyword === "") 
       return;
     
