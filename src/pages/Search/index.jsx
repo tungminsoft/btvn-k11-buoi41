@@ -18,17 +18,19 @@ const Search = () => {
     const handle = setTimeout(() => {
       setKeyword(inputValue)
     }
-    , 500)
+      , 500)
 
     return () => {
       clearTimeout(handle)
     }
-  },[inputValue]);
+  }, [inputValue]);
 
   useEffect(() => {
-    if(keyword === "") 
+    if (keyword === ""){
+      setProducts([])
       return;
-    
+    }
+
     setIsLoading(true);
     fetch(`https://api01.f8team.dev/api/products?q=${keyword}&page=${page}&per_page=${itemsPerPage}`)
       .then(res => res.json())
@@ -59,7 +61,7 @@ const Search = () => {
       </div>
 
       {products.length === 0
-        ? <p className="empty-message">Không tìm thấy sản phẩm nào.</p>
+        ? <p className="empty-message">{keyword === "" ? "Vui lòng nhập từ khóa." : "Không tìm thấy sản phẩm nào."}</p>
         : <ProductList
           products={products}
           totalPage={totalPage}
